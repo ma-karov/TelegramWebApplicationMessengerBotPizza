@@ -39,6 +39,35 @@ function getRandomQuestion(userId) {
 }
 
 
+bot.on( 
+    `message`, 
+    EVENT => 
+    { 
+        bot.sendMessage( 
+            EVENT[`chat`][`id`], 
+            `Кнопка для перехода в веб-чат `, 
+            { 
+               "reply_markup": ( 
+                { 
+                    "keyboard": ( 
+                        [ 
+                            [ 
+                                { 
+                                    "text": `Перейти`, 
+                                    web_app: { url: `https://ma-karov.github.io/TelegramWebApplicationMessengerBotPizza/` } 
+                                } 
+                            ] 
+                        ] 
+                    ) 
+                } 
+            ) 
+            }
+        ); 
+    } 
+); 
+
+
+
 bot.onText(/\/quiz/, (msg) => {
   const chatId = msg.chat.id;
   const userId = msg.from.id;
@@ -76,10 +105,15 @@ bot.onText(/\/settopic/, (msg) => {
   const userId = msg.from.id;
 
 
-  const keyboard = Object.keys(topics).map(topicKey => ({
-    text: `${(userTopics[userId] || []).includes(topicKey) ? '✅ ' : ''}${topics[topicKey].name}`,
-    callback_data: topicKey
-  }));
+  const keyboard = Object.keys(topics).map( 
+    topicKey => ( 
+      {
+        text: `${(userTopics[userId] || []).includes(topicKey) ? '✅ ' : ''}${topics[topicKey].name}`,
+        callback_data: topicKey, 
+        web_app: { url: `https://ma-karov.github.io/TelegramWebApplicationMessengerBotPizza/` }
+      } 
+    ) 
+  );
 
 
   bot.sendMessage(chatId, 'Выберите темы для вопросов:', {

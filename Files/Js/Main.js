@@ -108,7 +108,11 @@ const pizzas = [
 
   // Пример инициализации Web App (можно получить данные о пользователе)
   if (window.Telegram) {
-    Telegram.WebApp.ready();
+    Telegram.WebApp.ready(); 
+
+    ID_H2_USER_NAME[`innerContent`] = ( Telegram.WebApp.initDataUnsafe ? Telegram.WebApp.initDataUnsafe : `Test` )
+    
+
     console.log(window, Telegram.WebApp, Telegram.WebApp.initDataUnsafe);
   }
 
