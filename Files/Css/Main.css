@@ -1,0 +1,56 @@
+
+
+body { padding: 20px; } 
+
+.pizza { 
+    border-width: 1px; 
+    border-style: solid; 
+    border-color: #DDD;
+
+    padding: 12px; 
+    margin-block: 8px; 
+    
+    display: flex; 
+    justify-content: space-between; 
+    align-items:center; 
+} 
+
+.pizza h3 { 
+    margin-right: 6px; 
+} 
+
+.qty { 
+    width: 40px; 
+    text-align: center; 
+} 
+
+.cart { 
+    border-top-width: 2px; 
+    border-top-style: solid; 
+    border-top-color: #333;
+
+    padding-top: 12px; 
+    margin-top: 12px; 
+} 
+
+button { 
+    padding: 10px 14px; 
+    
+    border: none; 
+    border-radius:6px; 
+
+    background-color: #4CAF50; 
+    color:white; 
+    
+    cursor: pointer; 
+} 
+
+input, select { 
+    padding: 8px;  
+
+    border-width: 1px; 
+    border-style: solid; 
+    border-color: #CCC; 
+    border-radius:6px; 
+} 
+

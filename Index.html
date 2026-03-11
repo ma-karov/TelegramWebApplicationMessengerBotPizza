@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang = "ru" >
+<head> 
+    <meta charset = "UTF-8" /> 
+    <meta name = "viewport" content = "width=device-width, initial-scale=1.0" /> 
+    <title> Web App for Telegram </title> 
+
+    <link rel = "stylesheet" href = "Files/Css/Main.css" /> 
+
+    <script src = "https://telegram.org/js/telegram-web-app.js" > </script> 
+    
+    <script src = "Files/Js/IndexDataBase/DesignPatterns/Strategies/DataBaseEvents_Strategies.js" > </script> 
+    <script src = "Files/Js/IndexDataBase/DesignPatterns/Strategies/TransactionsEvents_Strategies.js" > </script> 
+    
+    <script src = "Files/Js/IndexDataBase/Connections.js" > </script> 
+    <script src = "Files/Js/IndexDataBase/Transactions.js" > </script> 
+    
+    <script src = "Files/Js/ThisWindowEvents.js" > </script> 
+
+</head> 
+<body> 
+    <h1>Пицца онлайн через Telegram Web App</h1> 
+    
+    <div id="menu">
+        <!-- Продукты будут генерироваться скриптом -->
+    </div>
+
+    <div class = "cart" id = "cart" style = " display: none; " > 
+        <h3> Ваш заказ </h3> 
+        <div id = "cartItems" > </div> 
+        <div style = " margin-top: 8px; " > 
+            <label> 
+                Имя: <input id = "customerName" placeholder = "Ваше имя" /> 
+            </label> 
+        </div> 
+        <div style = " margin-top: 8px; " > 
+            <button id = "placeOrderBtn" > Оформить заказ </button> 
+        </div> 
+        <div id = "status" style = " margin-top: 8px; color: green; " > </div> 
+    </div> 
+
+  
+    <script src = "Files/Js/Main.js" > </script> 
+
+</body> 
+</html> 
+
