@@ -228,7 +228,12 @@ if (window.Telegram)
                 Telegram.WebApp.sendData( 
                     JSON.stringify( 
                         { 
-                            "ArrayOrders": [ ArrayCustomerOrderData[0], ArrayCustomerOrderData[1] ] 
+                            "ArrayOrders": ( 
+                                [ 
+                                    ID_TABLE_PRINT_ARRAY_MAKE_ORDERS[`children`][1][`children`][`length`] + 1, 
+                                    ArrayCustomerOrderData[1] 
+                                ] 
+                            ) 
                         } 
                     ) 
                 ); 
