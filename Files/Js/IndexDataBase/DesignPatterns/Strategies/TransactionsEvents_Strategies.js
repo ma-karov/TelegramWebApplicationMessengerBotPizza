@@ -27,7 +27,11 @@ function QuerySuccessEvent_Strategy()
         {
             console.log(QuerySuccessEvent_Strategy.name, ARRAY_PARAMETERS) 
 
-            ARRAY_PARAMETERS[1]( new Array() ); 
+            ARRAY_PARAMETERS[1]( 
+                [ 
+                    ARRAY_PARAMETERS[0][0]
+                ] 
+            ); 
 
             return true; 
         }; 
@@ -77,7 +81,11 @@ function QueryErrorEvent_Strategy()
         {
             console.log(QueryErrorEvent_Strategy.name, ARRAY_PARAMETERS) 
 
-            ARRAY_PARAMETERS[1]( new Array() ); 
+            ARRAY_PARAMETERS[1]( 
+                [ 
+                    ARRAY_PARAMETERS[0][0]
+                ] 
+            ); 
 
             return true; 
         }; 

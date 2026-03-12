@@ -19,27 +19,61 @@
 
 </head> 
 <body> 
-    <h1>Пицца онлайн через Telegram Web App</h1> 
-    <h2 id = "ID_H2_USER_NAME" > </h2>
-    
-    <div id="menu">
-        <!-- Продукты будут генерироваться скриптом -->
-    </div>
+    <h1> Пицца онлайн через Telegram Web App </h1> 
 
-    <div class = "cart" id = "cart" style = " display: none; " > 
-        <h3> Ваш заказ </h3> 
-        <div id = "cartItems" > </div> 
-        <div style = " margin-top: 8px; " > 
-            <label> 
-                Имя: <input id = "customerName" placeholder = "Ваше имя" /> 
-            </label> 
-        </div> 
-        <div style = " margin-top: 8px; " > 
-            <button id = "placeOrderBtn" > Оформить заказ </button> 
-        </div> 
-        <div id = "status" style = " margin-top: 8px; color: green; " > </div> 
-    </div> 
+    <h2> Сделанные заказы </h2> 
+    <table id = "ID_TABLE_PRINT_ARRAY_MAKE_ORDERS" > 
+        <thead> 
+            <tr> 
+                <td> ID </td> 
+                <td> Продукт </td> 
+                <td> Цена, ₽ </td> 
+                <td> Количество </td> 
+                <td> К оплате, ₽ </td> 
+                <td> Имя покупателя </td> 
+                <td> Пункт доставки </td> 
+                <td> E-Mail </td> 
+                <td> Телефон </td> 
+            </tr> 
+        </thead> 
+        <tbody> 
 
+        </tbody> 
+    </table> 
+
+    <h2> Чтобы сделать новый заказ, заполните форму </h2> 
+    <form onsubmit = " return FormTelegramOrders_EventSubmit(this); " > 
+        <div> 
+            <label> Продукты: </label> 
+            <select name = "TypesProducts" > 
+                <option value = "Маргарита#350" > Маргарита (Цена 350 ₽) </option> 
+                <option value = "Гавайи#460" > Гавайи (Цена 460 ₽) </option> 
+                <option value = "Пепперони#420" > Пепперони (Цена 420 ₽) </option> 
+            </select> 
+        </div> 
+        <div> 
+            <label for = "ID_TypeProductLength" > Количество: </label> 
+            <input id = "ID_TypeProductLength" name = "TypeProductLength" required /> 
+        </div> 
+        <div> 
+            <label for = "ID_NameCustomer" > Имя: </label> 
+            <input id = "ID_NameCustomer" name = "NameCustomer" required /> 
+        </div> 
+        <div> 
+            <label for = "ID_DeliveryPointCustomer" > Пункт доставки: </label> 
+            <input id = "ID_DeliveryPointCustomer" name = "DeliveryPointCustomer" required /> 
+        </div> 
+        <div> 
+            <label for = "ID_EmailCustomer" > Электронная почта: </label> 
+            <input id = "ID_EmailCustomer" name = "EmailCustomer" type = "email" required /> 
+        </div> 
+        <div> 
+            <label for = "ID_PhoneCustomer" > Телефон: </label> 
+            <input id = "ID_PhoneCustomer" name = "PhoneCustomer" type = "tel" required /> 
+        </div> 
+        
+        <button> Сохраниить данные </button>
+    </form> 
   
     <script src = "Files/Js/Main.js" > </script> 
 

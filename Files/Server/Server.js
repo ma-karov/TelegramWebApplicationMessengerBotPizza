@@ -48,21 +48,31 @@ bot.on(
             `Кнопка для перехода в веб-чат `, 
             { 
                "reply_markup": ( 
-                { 
-                    "keyboard": ( 
-                        [ 
+                    { 
+                        "keyboard": ( 
                             [ 
-                                { 
-                                    "text": `Перейти`, 
-                                    web_app: { url: `https://ma-karov.github.io/TelegramWebApplicationMessengerBotPizza/` } 
-                                } 
+                                [ 
+                                    { 
+                                        "text": `Перейти`, 
+                                        web_app: { url: `https://ma-karov.github.io/TelegramWebApplicationMessengerBotPizza/` } 
+                                    } 
+                                ] 
                             ] 
-                        ] 
-                    ) 
-                } 
-            ) 
+                        ) 
+                    } 
+                ) 
             }
         ); 
+
+        console.log(EVENT[`web_app_data`])
+        if ( EVENT[`web_app_data`][`data`] ) 
+        { 
+            const DATA_PARSE = JSON.parse( EVENT[`web_app_data`][`data`] ); 
+            console.log(DATA_PARSE)
+            
+            bot.sendMessage(EVENT[`chat`][`id`], `Ожидайте заказ № ${DATA_PARSE[`ArrayOrders`][0]}: ${DATA_PARSE[`ArrayOrders`][1]}. \n\nМы с вами скоро свяжемся. `) 
+        } 
+
     } 
 ); 
 

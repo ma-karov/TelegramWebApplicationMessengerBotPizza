@@ -106,15 +106,141 @@ const pizzas = [
     document.getElementById('placeOrderBtn').addEventListener('click', placeOrder);
   }); 
 
+
+function UpdateTableOrders() 
+{ 
+    //console.dir(ID_TABLE_PRINT_ARRAY_MAKE_ORDERS[`children`][1] ); 
+
+    const INDEXED_DATABASE_FACTORY = document[`head`][`dataset`][`__proto__`][`CONNECTIONS`][`INDEXED_DATABASE_FACTORY`]; 
+    
+    if ( ArrayCustomerOrderData[`ValidateBool`] ) 
+    { 
+        const NEW_ID = ID_TABLE_PRINT_ARRAY_MAKE_ORDERS[`children`][1][`children`][`length`] + 1; 
+    
+        const TEMPORARY_OBJECT = ( 
+            { 
+                "ID": NEW_ID, 
+                "TypeProduct": ArrayCustomerOrderData[0][0], 
+                "TypeProductCost": ArrayCustomerOrderData[0][1], 
+                "TypeProductLength": ArrayCustomerOrderData[1], 
+                "NameCustomer": ArrayCustomerOrderData[2], 
+                "DeliveryPointCustomer": ArrayCustomerOrderData[3], 
+                "EmailCustomer": ArrayCustomerOrderData[4], 
+                "PhoneCustomer": ArrayCustomerOrderData[5]
+            } 
+        ); 
+
+        const TRANSACTION = INDEXED_DATABASE_FACTORY.GetTransactionWithArrayTablesFromDataBase( 
+            [ 
+                [ [`TableOrdersPizza`], `readwrite` ] 
+            ] 
+        ); 
+
+        TRANSACTION.AddRecordsBool( 
+            [ 
+                [ 
+                    [ 
+                        `TableOrdersPizza`,
+                        TEMPORARY_OBJECT 
+                    ] 
+                    
+                ], 
+                [], 
+                [ 
+                    [ 
+                        ARRAY_PARAMETERS => 
+                        { 
+                            const TEMPORARY_ARRAY = new Array( ArrayCustomerOrderData[`length`] + 2 ); 
+                            TEMPORARY_ARRAY[0] = NEW_ID; 
+                            TEMPORARY_ARRAY[1] = ArrayCustomerOrderData[0][0]; 
+                            TEMPORARY_ARRAY[2] = +ArrayCustomerOrderData[0][1]; 
+                            TEMPORARY_ARRAY[3] = +ArrayCustomerOrderData[1]; 
+                            
+                            TEMPORARY_ARRAY[4] = TEMPORARY_ARRAY[2]*TEMPORARY_ARRAY[3]; 
+
+                            TEMPORARY_ARRAY[5] = ArrayCustomerOrderData[2]; 
+                            TEMPORARY_ARRAY[6] = ArrayCustomerOrderData[3]; 
+                            TEMPORARY_ARRAY[7] = ArrayCustomerOrderData[4]; 
+                            TEMPORARY_ARRAY[8] = ArrayCustomerOrderData[5]; 
+
+                            var StringTBodyHTML = `<tr> `; 
+                            TEMPORARY_ARRAY.forEach( 
+                                ELEMENT => ( StringTBodyHTML += `<td> ${ELEMENT} </td>` ) 
+                            ); 
+
+                            StringTBodyHTML += `</tr> `; 
+
+                            ID_TABLE_PRINT_ARRAY_MAKE_ORDERS[`children`][1][`innerHTML`] += StringTBodyHTML; 
+                        }, 
+                        ARRAY_PARAMETERS =>
+                        { 
+                            alert(`ERROR`)
+                        } 
+                    ]
+                ] 
+            ] 
+        ); 
+    } 
+
+} 
+
+function FormTelegramOrders_EventSubmit(THIS) 
+{ 
+    console.log(THIS[`elements`], document[`head`][`dataset`][`__proto__`][`CONNECTIONS`] ); 
+    ArrayCustomerOrderData = new Array( THIS[`elements`][`length`] - 1 ); 
+    ArrayCustomerOrderData[`ValidateBool`] = true; 
+
+    var Index = 0; 
+    for (const HTML_ELEMENT of THIS[`elements`]) 
+        if ( HTML_ELEMENT[`name`] ) 
+            ArrayCustomerOrderData[Index++] = HTML_ELEMENT[`value`]; 
+
+    ArrayCustomerOrderData[0] = ArrayCustomerOrderData[0].split(`#`); 
+
+    ( 
+        new Promise( 
+            function (RESOLVE, REJECT) 
+            { 
+                UpdateTableOrders(); 
+
+                RESOLVE(undefined); 
+            }
+        ) 
+    ); 
+
+    return false; 
+} 
+
+
   // Пример инициализации Web App (можно получить данные о пользователе)
-  if (window.Telegram) {
+if (window.Telegram) 
+{
     Telegram.WebApp.ready(); 
 
-    ID_H2_USER_NAME[`innerContent`] = ( Telegram.WebApp.initDataUnsafe ? Telegram.WebApp.initDataUnsafe : `Test` )
+    Telegram.WebApp.MainButton.show(); 
+    Telegram.WebApp.MainButton.setText(`Сделать заказ`); 
     
+    Telegram.WebApp.onEvent( 
+        `mainButtonClicked`, 
+        EVENT => 
+        { 
+            if ( ArrayCustomerOrderData[`ValidateBool`] ) 
+                Telegram.WebApp.sendData( 
+                    JSON.stringify( 
+                        { 
+                            "ArrayOrders": [ ArrayCustomerOrderData[0], ArrayCustomerOrderData[1] ] 
+                        } 
+                    ) 
+                ); 
 
-    console.log(window, Telegram.WebApp, Telegram.WebApp.initDataUnsafe);
-  }
+            ArrayCustomerOrderData[`ValidateBool`] = false; 
+        } 
+    ) 
 
+  console.log(window, Telegram.WebApp);
+}
+
+var ArrayCustomerOrderData = new Array(); 
+ArrayCustomerOrderData[`ValidateBool`] = false; 
 
 //console.log(1111111, document, document[`head`][`dataset`][`__proto__`][`CONNECTIONS`]);

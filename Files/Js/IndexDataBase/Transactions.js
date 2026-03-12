@@ -90,6 +90,28 @@ function Transactions(ARRAY_SETTINGS)
             return true; 
         }; 
         
+        ThisPrivate[`GetAllRecordsBool`] = ARRAY_PARAMETERS => 
+        { 
+            ARRAY_SETTINGS[0].forEach( 
+                TABLE => 
+                    ARRAY_PARAMETERS[0].forEach( 
+                        SUB_ARRAY => 
+                        { 
+                            if (SUB_ARRAY[0] == TABLE[`name`]) 
+                                ARRAY_FIELDS[`PRIVATE`][`METHODS`].AddQueryHandlers( 
+                                    [ 
+                                        TABLE.getAll(), 
+                                        ARRAY_PARAMETERS[1], 
+                                        ARRAY_PARAMETERS[2] 
+                                    ] 
+                                ); 
+                        } 
+                    ) 
+            ); 
+            
+            return true; 
+        }; 
+        
     } 
 
     function Constructor() 
